@@ -1,11 +1,11 @@
-node 'ip-172-31-29-7.us-east-2.compute.internal' {
-
-include docker
-
+node default {
+exec{'Conditions':
+command=> '/bin/echo "Apache is not  installed" > /tmp/status.txt',
+unless=> '/bin/which apache2',
 }
 
-node 'ip-172-31-16-58.us-east-2.compute.internal' {
-
-include java
-
+exec{'conditions':
+command=> '/bin/echo "Apache is installed" > /tmp/status.txt',
+onlyif=> '/bin/which apache2',
+}
 }
